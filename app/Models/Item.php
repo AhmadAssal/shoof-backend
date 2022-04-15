@@ -14,6 +14,6 @@ class Item extends Model
 
     public function watchlist()
     {
-        return $this->belongsTo(Watchlist::class);
+        return $this->belongsToMany(Watchlist::class);
     }
 }
