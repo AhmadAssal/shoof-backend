@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
+            $table->boolean('is_movie');
             $table->integer('tmdb_id');
             $table->timestamps();
         });
