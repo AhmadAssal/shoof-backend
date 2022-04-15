@@ -24,7 +24,7 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'alpha_num | required',
+            'name' => 'string | required',
             'type' => 'boolean | required',
             'tmdb_id' => 'integer | required',
         ];
