@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Http\Requests\ItemRequest;
 
 class ItemController extends Controller
 {
@@ -23,9 +24,11 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
-        //
+        $validated_data = (object) $request->validated();
+        $item = Item::create(['name' => $validated_data->name, 'type' => $validated_data->type, 'tmdb_id' => $validated_data->tmdb_id]);
+        return response()->json(['item' => $item], 201);
     }
 
     /**
