@@ -12,6 +12,8 @@ class Item extends Model
 
     protected $table = 'items';
 
+    protected $fillable = ['name', 'type', 'tmdb_id'];
+
     public function watchlist()
     {
         return $this->belongsToMany(Watchlist::class);
