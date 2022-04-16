@@ -12,7 +12,7 @@ class Item extends Model
 
     protected $table = 'items';
 
-    protected $fillable = ['name', 'type', 'tmdb_id'];
+    protected $fillable = ['name', 'is_movie', 'tmdb_id'];
 
     public function watchlist()
     {

@@ -25,7 +25,7 @@ class ItemRequest extends FormRequest
     {
         return [
             'name' => 'string | required',
-            'type' => 'boolean | required',
+            'is_movie' => 'boolean | required',
             'tmdb_id' => 'integer | required',
         ];
     }
