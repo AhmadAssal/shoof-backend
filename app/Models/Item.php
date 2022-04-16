@@ -14,8 +14,8 @@ class Item extends Model
 
     protected $fillable = ['name', 'is_movie', 'tmdb_id'];
 
-    public function watchlist()
+    public function watchlists()
     {
-        return $this->belongsToMany(Watchlist::class);
+        return $this->belongsToMany(Watchlist::class)->withPivot('item_order', 'rating');
     }
 }
