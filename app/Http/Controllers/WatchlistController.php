@@ -63,6 +63,7 @@ class WatchlistController extends Controller
      */
     public function destroy(Watchlist $watchlist)
     {
-        //
+        $watchlist->delete();
+        return response()->json('', 204);
     }
 }
