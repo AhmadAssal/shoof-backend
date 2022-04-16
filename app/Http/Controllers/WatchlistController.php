@@ -15,7 +15,7 @@ class WatchlistController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['watchlists' => Watchlist::all()], 200);
     }
 
     /**
@@ -49,9 +49,10 @@ class WatchlistController extends Controller
      * @param  \App\Models\Watchlist  $watchlist
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Watchlist $watchlist)
+    public function update(WatchlistRequest $request, Watchlist $watchlist)
     {
-        //
+        $watchlist->update($request->validated());
+        return response()->json(['watchlist' => $watchlist], 200);
     }
 
     /**
