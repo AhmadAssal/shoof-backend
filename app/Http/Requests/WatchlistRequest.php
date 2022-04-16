@@ -24,7 +24,7 @@ class WatchlistRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'alpha | required',
+            'name' => 'string | required',
             'user_id' => 'numeric | required'
         ];
     }
