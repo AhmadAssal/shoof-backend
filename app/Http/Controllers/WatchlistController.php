@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use App\Http\Requests\WatchlistRequest;
+use App\Models\Item;
 
 class WatchlistController extends Controller
 {
@@ -65,5 +66,16 @@ class WatchlistController extends Controller
     {
         $watchlist->delete();
         return response()->json('', 204);
+    }
+
+    public function addItem(Request $request)
+    {
+        $watchlist = Watchlist::find($request->watchlist_id);
+        $item = Item::find($request->item_id);
+        $item->watchlists()->sync([$item->id => [
+            'rating' => 4.0,
+            'item_order' => 1
+        ]]);
+        return response(['watchlist' => $watchlist], 200);
     }
 }
