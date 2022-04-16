@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
+use App\Http\Requests\WatchlistRequest;
 
 class WatchlistController extends Controller
 {
@@ -23,9 +24,11 @@ class WatchlistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WatchlistRequest $request)
     {
-        //
+        $validated_data = (object) $request->validated();
+        $watchlist = Watchlist::create(['name' => $validated_data->name, 'user_id' => $validated_data->user_id]);
+        return response()->json(['watchlist' => $watchlist], 201);
     }
 
     /**
