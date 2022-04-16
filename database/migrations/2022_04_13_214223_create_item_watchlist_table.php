@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('watchlist_items', function (Blueprint $table) {
+        Schema::create('item_watchlist', function (Blueprint $table) {
             $table->id();
             $table->foreignId('watchlist_id')->references('id')->on('watchlists');
             $table->integer('item_order');
