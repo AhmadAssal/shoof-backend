@@ -39,7 +39,7 @@ class WatchlistController extends Controller
      */
     public function show(Watchlist $watchlist)
     {
-        //
+        return response()->json(["watchlist" => $watchlist], 200);
     }
 
     /**
