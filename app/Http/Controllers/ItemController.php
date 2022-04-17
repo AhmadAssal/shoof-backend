@@ -27,7 +27,11 @@ class ItemController extends Controller
     public function store(ItemRequest $request)
     {
         $validated_data = (object) $request->validated();
-        $item = Item::create(['name' => $validated_data->name, 'is_movie' => $validated_data->is_movie, 'tmdb_id' => $validated_data->tmdb_id]);
+        $item = Item::create([
+            'name' => $validated_data->name,
+            'is_movie' => $validated_data->is_movie,
+            'tmdb_id' => $validated_data->tmdb_id
+        ]);
         return response()->json(['item' => $item], 201);
     }
 
