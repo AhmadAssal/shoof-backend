@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('items', ItemController::class);
 Route::apiResource('watchlists', WatchlistController::class);
 Route::post('watchlist-item', [WatchlistController::class, 'addItem']);
+Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
