@@ -20,7 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('items', ItemController::class);
-Route::apiResource('watchlists', WatchlistController::class);
-Route::post('watchlist-item', [WatchlistController::class, 'addItem']);
-Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
+// Route::apiResource('items', ItemController::class);
+// Route::apiResource('watchlists', WatchlistController::class);
+// Route::post('watchlist-item', [WatchlistController::class, 'addItem']);
+// Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::apiResource('items', ItemController::class);
+    Route::apiResource('watchlists', WatchlistController::class);
+    Route::post('watchlist-item', [WatchlistController::class, 'addItem']);
+    Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
+});
