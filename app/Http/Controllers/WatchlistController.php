@@ -40,7 +40,7 @@ class WatchlistController extends Controller
      */
     public function show(Watchlist $watchlist)
     {
-        return response()->json(["watchlist" => $watchlist], 200);
+        return response()->json(["watchlist" => $watchlist->with('items')->get()], 200);
     }
 
     /**
@@ -77,5 +77,12 @@ class WatchlistController extends Controller
             'item_order' => 1
         ]]);
         return response(['watchlist' => $watchlist], 200);
+    }
+    public function removeItem(Request $request)
+    {
+        $watchlist = Watchlist::find($request->watchlist_id);
+        $item = Item::find($request->item_id);
+        $item->watchlists()->detach($watchlist);
+        return response()->json(['watchlist' => $watchlist], 200);
     }
 }
