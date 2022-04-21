@@ -30,7 +30,7 @@ class WatchlistPolicy
      */
     public function view(User $user, Watchlist $watchlist)
     {
-        //
+        return $user->id === $watchlist->user_id;
     }
 
     /**
@@ -41,7 +41,7 @@ class WatchlistPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class WatchlistPolicy
      */
     public function update(User $user, Watchlist $watchlist)
     {
-        //
+        return $user->id === $watchlist->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class WatchlistPolicy
      */
     public function delete(User $user, Watchlist $watchlist)
     {
-        //
+        return $user->id === $watchlist->user_id;
     }
 
     /**
@@ -77,7 +77,7 @@ class WatchlistPolicy
      */
     public function restore(User $user, Watchlist $watchlist)
     {
-        //
+        return $user->id === $watchlist->user_id;
     }
 
     /**
@@ -89,6 +89,6 @@ class WatchlistPolicy
      */
     public function forceDelete(User $user, Watchlist $watchlist)
     {
-        //
+        return $user->id === $watchlist->user_id;
     }
 }
