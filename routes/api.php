@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WatchlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::apiResource('watchlists', WatchlistController::class);
 // Route::post('watchlist-item', [WatchlistController::class, 'addItem']);
 // Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
+
+Route::post('register', [UserController::class, 'register']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('items', ItemController::class);
