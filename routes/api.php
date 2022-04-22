@@ -33,4 +33,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('watchlists', WatchlistController::class);
     Route::post('watchlist-item', [WatchlistController::class, 'addItem']);
     Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
+    Route::post('reorder-watchlist', [WatchlistController::class, 'editItems']);
 });
