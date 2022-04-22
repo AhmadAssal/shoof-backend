@@ -16,6 +16,6 @@ class Item extends Model
 
     public function watchlists()
     {
-        return $this->belongsToMany(Watchlist::class)->withPivot('item_order', 'rating');
+        return $this->belongsToMany(Watchlist::class);
     }
 }
