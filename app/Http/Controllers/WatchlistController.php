@@ -84,14 +84,16 @@ class WatchlistController extends Controller
     {
 
         $watchlist = Watchlist::find($request->watchlist_id);
+        // dd($watchlist);
         if ($request->user()->id != $watchlist->user_id) {
             return response()->json(["error" => 'unauthorized'], 403);
         }
         $item = Item::find($request->item_id);
-        $item->watchlists()->sync([$item->id => [
-            'rating' => 4.0,
-            'item_order' => 1
-        ]]);
+        if (is_null($item)) return response(['error' => "item not found"], 404);
+        $watchlist->items()->attach($request->item_id, [
+            'rating' => $request->rating,
+            'item_order' => $request->item_order
+        ]);
         return response(['watchlist' => $watchlist], 200);
     }
     public function removeItem(Request $request)
