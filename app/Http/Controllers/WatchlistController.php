@@ -106,4 +106,14 @@ class WatchlistController extends Controller
         $item->watchlists()->detach($watchlist);
         return response()->json(['watchlist' => $watchlist], 200);
     }
+
+    public function editItems(Request $request)
+    {
+        $items = json_decode($request->items, true);
+        $watchlist = Watchlist::find($request->watchlist_id);
+        foreach ($items as $item) {
+            $watchlist->items()->updateExistingPivot($item["item_id"], $item);
+        }
+        return response()->json(['watchlist' => $watchlist->with('items')->get()], 200);
+    }
 }
