@@ -27,11 +27,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
 
 Route::post('register', [UserController::class, 'register']);
-
+Route::post('login', [UserController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('items', ItemController::class);
     Route::apiResource('watchlists', WatchlistController::class);
     Route::post('watchlist-item', [WatchlistController::class, 'addItem']);
     Route::post('remove-watchlist-item', [WatchlistController::class, 'removeItem']);
     Route::post('reorder-watchlist', [WatchlistController::class, 'editItems']);
+    Route::post('logout', [UserController::class, 'logout']);
 });
