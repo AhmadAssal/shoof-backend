@@ -14,11 +14,12 @@ class UserController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $validated = $request->validated();
+        $validated = json_decode($request->getContent());
+        // $validated = $request->validated();
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password'])
+            'name' => $validated->name,
+            'email' => $validated->email,
+            'password' => Hash::make($validated->password)
         ]);
 
         $token = $user->createToken('shoof_token')->plainTextToken;
