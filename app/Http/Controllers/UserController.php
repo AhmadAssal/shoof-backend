@@ -15,7 +15,6 @@ class UserController extends Controller
     public function register(RegisterRequest $request)
     {
         $validated = json_decode($request->getContent());
-        // $validated = $request->validated();
         $user = User::create([
             'name' => $validated->name,
             'email' => $validated->email,
