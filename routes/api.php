@@ -36,3 +36,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('reorder-watchlist', [WatchlistController::class, 'editItems']);
     Route::post('logout', [UserController::class, 'logout']);
 });
+Route::post('forget-password', [UserController::class, 'createForgetPasswordToken']);
+Route::post('reset-password', [UserController::class, 'resetPassword']);
