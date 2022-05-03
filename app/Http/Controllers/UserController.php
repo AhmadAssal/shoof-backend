@@ -8,7 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests\RegisterRequest;
-
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Passwords\PasswordBroker;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -55,5 +57,12 @@ class UserController extends Controller
             "message" => "you have been logged out"
         ];
         return response()->json($response, 200);
+    }
+
+    public function createForgetPasswordToken(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        $token = app(PasswordBroker::class)->createToken($user);
+        return response()->json(['message' => 'Token created.', 'token' => $token], 200);
     }
 }
