@@ -8,9 +8,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests\RegisterRequest;
+use App\Mail\ResetPasswordMail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -63,6 +65,21 @@ class UserController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         $token = app(PasswordBroker::class)->createToken($user);
+        Mail::to('ahmad@test.com')->send(new ResetPasswordMail());
         return response()->json(['message' => 'Token created.', 'token' => $token], 200);
+    }
+
+    public function resetPassword(Request $request, $token)
+    {
+        $user = User::where('email', $request->email)->first();
+        $isTokenValid = app(PasswordBroker::class)->tokenExists($user, $token);
+        if (!$isTokenValid) {
+            return response()->json(['error' => 'This token expired or is not valid.'], 401);
+        } else {
+            $user->password = Hash::make($request->newPassword);
+            $user->save();
+            $actualToken = DB::table('password_resets')->where('email', '=', $request->email)->delete();
+            return response()->json(['message' => 'User updated successfully.'], 200);
+        }
     }
 }
