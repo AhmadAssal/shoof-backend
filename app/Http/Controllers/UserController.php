@@ -69,10 +69,10 @@ class UserController extends Controller
         return response()->json(['message' => 'Token created.', 'token' => $token], 200);
     }
 
-    public function resetPassword(Request $request, $token)
+    public function resetPassword(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        $isTokenValid = app(PasswordBroker::class)->tokenExists($user, $token);
+        $isTokenValid = app(PasswordBroker::class)->tokenExists($user, $request->token);
         if (!$isTokenValid) {
             return response()->json(['error' => 'This token expired or is not valid.'], 401);
         } else {
