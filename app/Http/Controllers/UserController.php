@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         $token = app(PasswordBroker::class)->createToken($user);
-        Mail::to('ahmad@test.com')->send(new ResetPasswordMail($token));
+        Mail::to($request->email)->send(new ResetPasswordMail($token));
         return response()->json(['message' => 'Token created.', 'token' => $token], 200);
     }
 
