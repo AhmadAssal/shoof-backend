@@ -15,7 +15,7 @@
     <p>We received a request to change your password. If you didn't send this request, ignore this email.</p>
     <p>If you sent the request, please follow this following link and enter this token: {{ $token }}</p>
 
-    <a href={{ 'localhost:3000/reset-password/' }}> reset your password</a>
+    <a href={{ config('app.forget_password') }}> reset your password</a>
 </body>
 
 </html>
