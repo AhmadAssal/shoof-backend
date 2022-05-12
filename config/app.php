@@ -123,6 +123,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'forget_password' => env('FORGET_PASSWORD_URL'),
+
     'cipher' => 'AES-256-CBC',
 
     /*
