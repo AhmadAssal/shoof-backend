@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         $validated = json_decode($request->getContent());
 
-        $user = User::where("email", $validated->email)->first();
+        $user = User::where("email", $validated->email)->with('watchlists')->first();
         if (is_null($user) || !Hash::check($validated->password, $user->password))
             return response()->json(["error" => "User credentials not found"], 401);
         $token = $user->createToken('shoof_token')->plainTextToken;
