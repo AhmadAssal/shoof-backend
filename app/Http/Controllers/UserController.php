@@ -82,4 +82,11 @@ class UserController extends Controller
             return response()->json(['message' => 'User updated successfully.'], 200);
         }
     }
+
+    public function getUser(Request $request)
+    {
+        $user = $request->user();
+        $user['watchlists'] = $user->watchlists;
+        return $user;
+    }
 }
