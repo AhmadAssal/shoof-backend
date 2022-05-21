@@ -96,6 +96,9 @@ class WatchlistController extends Controller
             ]
         );
         if (is_null($item)) return response(['error' => "item not found"], 404);
+        if ($watchlist->items()->where('tmdb_id', $request->tmdb_id)->first()) {
+            return  response()->json(["error" => 'Item already exists in watchlist'], 400);
+        }
         $watchlist->items()->attach($item->id, [
             'rating' => $request->rating,
             'item_order' => $request->item_order
@@ -109,7 +112,10 @@ class WatchlistController extends Controller
         if ($request->user()->id != $watchlist->user_id) {
             return response()->json(["error" => 'unauthorized'], 403);
         }
-        $item = Item::find($request->item_id);
+        $item = $watchlist->items()->where('tmdb_id', $request->tmdb_id)->first();
+        if (!$item) {
+            return response()->json(['error' => 'This item is not associated with this watchlist']);
+        }
         $item->watchlists()->detach($watchlist);
         return response()->json(['watchlist' => $watchlist], 200);
     }
