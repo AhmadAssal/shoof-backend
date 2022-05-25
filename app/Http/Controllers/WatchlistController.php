@@ -46,7 +46,8 @@ class WatchlistController extends Controller
         if ($request->user()->id != $watchlist->user_id) {
             return response()->json(["error" => 'unauthorized'], 403);
         }
-        return response()->json(["watchlist" => $watchlist->with('items')->get()], 200);
+        $watchlist['items'] = $watchlist->items;
+        return response()->json(["watchlist" => $watchlist], 200);
     }
 
     /**
