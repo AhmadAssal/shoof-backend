@@ -43,6 +43,12 @@ class UserController extends Controller
         if (is_null($user) || !Hash::check($validated->password, $user->password))
             return response()->json(["error" => "User credentials not found"], 401);
         $token = $user->createToken('shoof_token')->plainTextToken;
+
+        $watchlists = $user->watchlists;
+        foreach ($watchlists as $watchlist) {
+            $watchlist['items'] = $watchlist->items;
+        }
+        $user['watchlists'] = $watchlists;
         $response = [
             'token' => $token,
             'user' => $user
@@ -86,7 +92,12 @@ class UserController extends Controller
     public function getUser(Request $request)
     {
         $user = $request->user();
-        $user['watchlists'] = $user->watchlists;
+        $watchlists = $user->watchlists;
+        foreach ($watchlists as $watchlist) {
+            $watchlist['items'] = $watchlist->items;
+        }
+        $user['watchlists'] = $watchlists;
+
         return $user;
     }
 }
