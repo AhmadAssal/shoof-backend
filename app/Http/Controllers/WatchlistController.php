@@ -104,7 +104,7 @@ class WatchlistController extends Controller
         $last_item = $watchlist->items()->where('watchlist_id', $request->watchlist_id)->orderBy('item_order', 'desc')->first();
 
         $watchlist->items()->attach($item->id, [
-            'rating' => $request->rating,
+            'rating' => isset($request->rating) || NULL,
             'item_order' => $last_item->pivot->item_order + 1
         ]);
         $watchlist['items'] = $watchlist->items;
