@@ -96,16 +96,16 @@ class WatchlistController extends Controller
                 'tmdb_id' => $request->tmdb_id
             ]
         );
-        if (is_null($item)) return response(['error' => "item not found"], 404);
         if ($watchlist->items()->where('tmdb_id', $request->tmdb_id)->first()) {
             return  response()->json(["error" => 'Item already exists in watchlist'], 400);
         }
 
         $last_item = $watchlist->items()->where('watchlist_id', $request->watchlist_id)->orderBy('item_order', 'desc')->first();
 
+
         $watchlist->items()->attach($item->id, [
             'rating' => isset($request->rating) || NULL,
-            'item_order' => $last_item->pivot->item_order + 1
+            'item_order' => $last_item ? $last_item->pivot->item_order + 1 : 1
         ]);
         $watchlist['items'] = $watchlist->items;
         return response(['watchlist' => $watchlist], 200);
